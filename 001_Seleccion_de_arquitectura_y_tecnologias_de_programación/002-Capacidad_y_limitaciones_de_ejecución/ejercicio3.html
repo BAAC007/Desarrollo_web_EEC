@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>LocalStorage</title>
+</head>
+
+<body>
+
+    <h1>Guardar información en el navegador</h1>
+
+    <input type="text" id="nombre" placeholder="Escribe tu nombre">
+
+    <input type="text" id="apellido" placeholder="Escribe tu apellido">
+
+    <input type="number" id="edad" placeholder="Escribe tu edad">
+
+    <input type="date" id="fecha" placeholder="Escribe tu fecha de nacimiento">
+
+    <input type="number" id="geolocalización" placeholder="Escribe tu ubicación">
+
+    <button onclick="guardarDatos()">
+        Guardar
+    </button>
+
+    <button onclick="mostrarDatos()">
+        Recuperar
+    </button>
+
+    <button onclick="borrarDatos()">
+        Borrar
+    </button>
+
+    <p id="resultado"></p>
+
+    <script>
+
+        function guardarDatos() {
+
+            const datos =
+                document.getElementById("nombre").value;
+                document.getElementById("apellido").value;
+                document.getElementById("edad").value;
+                document.getElementById("fecha").value;
+                document.getElementById("geolocalización").value;
+
+            localStorage.setItem("nombre", "apellido", "edad", "fecha", "geolocalización", datos);
+
+        }
+
+
+        function mostrarDatos() {
+
+            const datos =
+                localStorage.getItem("nombre");
+                localStorage.getItem("apellido");
+                localStorage.getItem("edad");
+                localStorage.getItem("fecha");
+                localStorage.getItem("geolocalización");
+
+            document.getElementById("resultado").textContent =
+                "Datos Almacenados: " + nombre;
+                "Datos Almacenados: " + apellido;
+                "Datos Almacenados: " + edad;
+                "Datos Almacenados: " + fecha;
+                "Datos Almacenados: " + geolocalización;
+
+        }
+
+
+        function borrarDatos() {
+
+            localStorage.removeItem("nombre");
+            localStorage.removeItem("apellido");
+            localStorage.removeItem("edad");
+            localStorage.removeItem("fecha");
+            localStorage.removeItem("geolocalización");
+
+            document.getElementById("resultado").textContent =
+                "Información eliminada";
+
+        }
+
+    </script>
+
+</body>
+
+</html>
