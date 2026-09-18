@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Geolocalización</title>
+</head>
+
+<body>
+
+    <h1>Geolocalización</h1>
+
+    <input type="number" id="latitud" placeholder="Escribe la altitud">
+
+    <input type="number" id="longitud" placeholder="Escribe la longitud">
+
+    <button onclick="ubicacion()">
+        Comprobar ubicación
+    </button>
+
+    <button onclick="obtenerUbicacion()">
+        Obtener mi ubicación
+    </button>
+
+    <p id="resultado"></p>
+
+    <script>
+
+        function ubicacion(){
+            
+            const latitud = document.getElementById("latitud").value;
+
+            const longitud = document.getElementById("longitud").value;
+
+            if (latitud == 39.4699 && longitud == 0.3763)  {
+                console.log("Estás en Valencia");
+            }
+
+        }
+
+        function obtenerUbicacion() {
+
+            const resultado =
+                document.getElementById("resultado");
+
+            if (!navigator.geolocation) {
+
+                resultado.textContent =
+                    "El navegador no dispone de geolocalización.";
+
+                return;
+
+            }
+
+            resultado.textContent =
+                "Solicitando ubicación...";
+
+            navigator.geolocation.getCurrentPosition(
+
+                function (posicion) {
+
+                    resultado.textContent =
+                        "Latitud: " +
+                        posicion.coords.latitude +
+                        " | Longitud: " +
+                        posicion.coords.longitude;
+                    
+
+                },
+
+                function () {
+
+                    resultado.textContent =
+                        "No se ha podido obtener la ubicación.";
+
+                }
+
+            );
+
+        }
+
+    </script>
+
+</body>
+
+</html>
