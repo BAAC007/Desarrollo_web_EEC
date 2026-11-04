@@ -1,0 +1,44 @@
+<!doctype html>
+<!--
+  Completa el código de cada botón:
+    - Open MDN: abre la documentación de MDN en una ventana de 800 x 600
+      (posición left=200, top=100) y guárdala en `helpWindow`.
+    - Close MDN: cierra la ventana si existe y no está ya cerrada (propiedad
+      `closed`).
+
+  Resultado esperado:
+    Los botones abren y cierran la ventana.
+-->
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Windows</title>
+</head>
+
+<body>
+  <button id="open">Open MDN</button>
+  <button id="close">Close MDN</button>
+
+  <script>
+    let helpWindow = null;
+
+    document.querySelector("#open").addEventListener("click", () => {
+      // Abre la ventana con las dimensiones y posición especificadas
+      helpWindow = window.open(
+        "https://developer.mozilla.org/",
+        "MDN_Help",
+        "width=800,height=600,left=200,top=100"
+      );
+    });
+
+    document.querySelector("#close").addEventListener("click", () => {
+      // Verifica que la ventana exista y no haya sido cerrada manualmente por el usuario
+      if (helpWindow && !helpWindow.closed) {
+        helpWindow.close();
+      }
+    });
+  </script>
+</body>
+
+</html>
