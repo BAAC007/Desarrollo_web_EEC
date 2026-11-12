@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saludo Personalizado</title>
+</head>
+<body>
+    <div id="contenido"></div>
+
+    <script>
+        // Obtener datos del localStorage
+        let nombre = localStorage.getItem('nombre');
+        let visitas = parseInt(localStorage.getItem('visitas')) || 0;
+
+        // Si no hay nombre guardado, pedirlo
+        if (!nombre) {
+            nombre = prompt('¿Cuál es tu nombre?');
+            
+            // Si cancela o deja vacío, usar "Invitado"
+            if (!nombre || nombre.trim() === '') {
+                nombre = 'Invitado';
+            } else {
+                // Primera letra mayúscula, resto minúscula
+                nombre = nombre.trim().charAt(0).toUpperCase() + nombre.trim().slice(1).toLowerCase();
+            }
+        } else {
+            // Si ya hay nombre, confirmar
+            const confirmar = confirm(`¿Eres ${nombre}?`);
+            
+            if (!confirmar) {
+                // Si responde que no, borrar datos y pedir de nuevo
+                localStorage.removeItem('nombre');
+                localStorage.removeItem('visitas');
+                
+                nombre = prompt('¿Cuál es tu nombre?');
+                
+                if (!nombre || nombre.trim() === '') {
+                    nombre = 'Invitado';
+                } else {
+                    nombre = nombre.trim().charAt(0).toUpperCase() + nombre.trim().slice(1).toLowerCase();
+                }
+                
+                visitas = 0;
+            }
+        }
+
+        // Incrementar contador de visitas
+        visitas++;
+
+        // Guardar datos en localStorage
+        localStorage.setItem('nombre', nombre);
+        localStorage.setItem('visitas', visitas);
+
+        // Obtener fecha y hora actual
+        const ahora = new Date();
+        const dia = String(ahora.getDate()).padStart(2, '0');
+        const mes = String(ahora.getMonth() + 1).padStart(2, '0');
+        const anio = ahora.getFullYear();
+        const horas = String(ahora.getHours()).padStart(2, '0');
+        const minutos = String(ahora.getMinutes()).padStart(2, '0');
+        const fechaHora = `${dia}/${mes}/${anio} ${horas}:${minutos}`;
+
+        // Crear elementos y mostrar información
+        const contenido = document.getElementById('contenido');
+
+        const saludo = document.createElement('p');
+        saludo.textContent = `Hola, ${nombre}. Es tu visita número ${visitas}.`;
+        contenido.appendChild(saludo);
+
+        const fecha = document.createElement('p');
+        fecha.textContent = `Fecha y hora: ${fechaHora}`;
+        contenido.appendChild(fecha);
+
+        // Cada 5 visitas, felicitar
+        if (visitas % 5 === 0) {
+            const felicitacion = document.createElement('p');
+            felicitacion.textContent = `¡Felicidades! Has visitado esta página ${visitas} veces.`;
+            felicitacion.className = 'felicitacion';
+            contenido.appendChild(felicitacion);
+        }
+    </script>
+</body>
+</html>
