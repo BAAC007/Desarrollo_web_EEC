@@ -1,11 +1,6 @@
 <!doctype html>
-<!--
-  Escucha el evento `keydown` en `document`:
-    - Muestra en `lastKey` la tecla pulsada (`e.key`).
-    - Con "ArrowRight" / "ArrowLeft" mueve `player` 20 px a la derecha / izquierda:
-      actualiza la variable `x` y asígnala a `player.style.left`.
--->
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Keyboard</title>
@@ -15,18 +10,24 @@
       height: 40px;
       border-bottom: 2px solid gray;
     }
+
     #player {
       position: absolute;
       left: 0;
       width: 40px;
       height: 40px;
       background: steelblue;
+      transition: left 0.1s ease;
+      /* Opcional: para que el movimiento se vea suave */
     }
   </style>
 </head>
+
 <body>
   <p>Press any key. Use the arrows to move the square.</p>
-  <div id="track"><div id="player"></div></div>
+  <div id="track">
+    <div id="player"></div>
+  </div>
   <p id="lastKey">Last key: -</p>
 
   <script>
@@ -34,7 +35,22 @@
     const lastKey = document.querySelector("#lastKey");
     let x = 0;
 
-    // TODO
+    // Escuchamos el evento 'keydown' en todo el documento
+    document.addEventListener("keydown", (e) => {
+      // 1. Mostramos la tecla pulsada
+      lastKey.textContent = `Last key: ${e.key}`;
+
+      // 2. Movemos el jugador según la tecla
+      if (e.key === "ArrowRight") {
+        x += 20; // Sumamos 20px a la derecha
+      } else if (e.key === "ArrowLeft") {
+        x -= 20; // Restamos 20px a la izquierda
+      }
+
+      // 3. Aplicamos el nuevo valor de x al estilo CSS del jugador
+      player.style.left = `${x}px`;
+    });
   </script>
 </body>
+
 </html>
